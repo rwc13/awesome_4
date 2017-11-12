@@ -148,7 +148,7 @@ ${voffset -15}${color6}${execbar echo 0}$color
 #${voffset -12}${color6}${execbar echo 0}
 
 ## HDD
-${image /home/reed/.config/awesome/conky/hard_drive.png -p 23,452 -s 35x35 }
+${image /home/reed/.config/awesome/conky/hard_drive.png -p 23,454 -s 35x35 }
 $font${color1}/dev/sda
 ${font Droid Sans Mono:size=7}${color2}Read:$diskio_read
 Write:$diskio_write${color}

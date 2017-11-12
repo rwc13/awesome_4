@@ -16,11 +16,11 @@ local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/copland"
 theme.wallpaper                                 = theme.dir .. "/wall.png"
 --theme.font                                      = "Tamzen 9"
-theme.font					= "Droid Sans Mono for Powerline 9"
+theme.font					= "Monospace 9"
 theme.taglist_font				= "Xirod 10"
 theme.fg_normal                                 = "#BBBBBB"
 theme.fg_focus                                  = "#78A4FF"
-theme.bg_normal                                 = "#11111199"
+theme.bg_normal                                 = "#111111"
 theme.bg_focus                                  = "#111111"
 theme.fg_urgent                                 = "#000000"
 theme.bg_urgent                                 = "#FFFFFF"
@@ -107,6 +107,10 @@ lain.widget.calendar({
         bg   = theme.bg_normal
     }
 })
+
+-- Launcher
+local mylauncher = awful.widget.button({image = theme.awesome_icon})
+mylauncher:connect_signal("button::press", function() awful.util.mymainmenu:toggle() end)
 
 --[[ Mail IMAP check
 -- commented because it needs to be set before use
@@ -349,8 +353,9 @@ function theme.at_screen_connect(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+	    bar_spr,
             wibox.widget.systray(),
-            small_spr,
+            bar_spr,
             --mail.widget,
             mpdicon,
             theme.mpd.widget,
