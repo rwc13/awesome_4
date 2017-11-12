@@ -1,3 +1,9 @@
+--[[
+
+     Awesome WM configuration template
+     github.com/lcpz
+
+--]]
 
 -- {{{ Required libraries
 local awesome, client, mouse, screen, tag = awesome, client, mouse, screen, tag
@@ -66,17 +72,17 @@ local themes = {
     "vertex",          -- 10
 }
 
-local chosen_theme = "rwc13"
+local chosen_theme = themes[5]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
-local terminal     = "termite"
-local editor       = os.getenv("EDITOR") or "vim"
-local gui_editor   = "gedit"
-local browser      = "chromium"
+local terminal     = "xterm"
+local editor       = os.getenv("EDITOR") or "nano"
+local gui_editor   = "gvim"
+local browser      = "firefox"
 local guieditor    = "atom"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "WEB", "TER", "PAC", "NEW", "GAM" }
+awful.util.tagnames = { "1", "2", "3", "4", "5" }
 awful.layout.layouts = {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
@@ -218,12 +224,6 @@ root.buttons(awful.util.table.join(
 globalkeys = awful.util.table.join(
     -- Take a screenshot
     -- https://github.com/lcpz/dots/blob/master/bin/screenshot
-
-    -- User Hotkeys
-	awful.key({ modkey }, "e", function () awful.util.spawn( "thunar" ) end),
-	awful.key({ modkey }, "c", function () awful.util.spawn( "chromium" ) end),
-
-
     awful.key({ altkey }, "p", function() os.execute("screenshot") end,
               {description = "take a screenshot", group = "hotkeys"}),
 
@@ -306,7 +306,7 @@ globalkeys = awful.util.table.join(
         end,
         {description = "go back", group = "client"}),
 
-    -- Show/Hide Horizontal Wibox(panel)
+    -- Show/Hide Wibox
     awful.key({ modkey }, "b", function ()
             for s in screen do
                 s.mywibox.visible = not s.mywibox.visible
@@ -316,16 +316,6 @@ globalkeys = awful.util.table.join(
             end
         end,
         {description = "toggle wibox", group = "awesome"}),
-
-		-- Show/Hide Vertical Wibox
-    awful.key({ altkey }, "v", function ()
-        for s in screen do
-            s.myverticalwibox.visible = not s.myverticalwibox.visible
-            if s.mybottomwibox then
-                s.mybottomwibox.visible = not s.mybottomwibox.visible
-            end
-        end
-    end),
 
     -- On the fly useless gaps change
     awful.key({ altkey, "Control" }, "+", function () lain.util.useless_gaps_resize(1) end,
@@ -350,7 +340,7 @@ globalkeys = awful.util.table.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
-    awful.key({ modkey, "Shift"   }, "e", awesome.quit,
+    awful.key({ modkey, "Shift"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
 
     awful.key({ altkey, "Shift"   }, "l",     function () awful.tag.incmwfact( 0.05)          end,
@@ -400,21 +390,19 @@ globalkeys = awful.util.table.join(
               {description = "-10%", group = "hotkeys"}),
 
     -- ALSA volume control
-    --awful.key({ altkey }, "Up",
-    awful.key({ }, "XF86AudioRaiseVolume",
+    awful.key({ altkey }, "Up",
         function ()
             os.execute(string.format("amixer -q set %s 1%%+", beautiful.volume.channel))
             beautiful.volume.update()
         end,
         {description = "volume up", group = "hotkeys"}),
-   -- awful.key({ altkey }, "Down",
-   awful.key({ }, "XF86AudioLowerVolume",
+    awful.key({ altkey }, "Down",
         function ()
             os.execute(string.format("amixer -q set %s 1%%-", beautiful.volume.channel))
             beautiful.volume.update()
         end,
         {description = "volume down", group = "hotkeys"}),
-    awful.key({ }, "XF86AudioMute",
+    awful.key({ altkey }, "m",
         function ()
             os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
             beautiful.volume.update()
@@ -480,10 +468,10 @@ globalkeys = awful.util.table.join(
               {description = "copy gtk to terminal", group = "hotkeys"}),
 
     -- User programs
-    --awful.key({ modkey }, "q", function () awful.spawn(browser) end,
-              --{description = "run browser", group = "launcher"}),
-    --awful.key({ modkey }, "a", function () awful.spawn(guieditor) end,
-              --{description = "run gui editor", group = "launcher"}),
+    awful.key({ modkey }, "q", function () awful.spawn(browser) end,
+              {description = "run browser", group = "launcher"}),
+    awful.key({ modkey }, "a", function () awful.spawn(guieditor) end,
+              {description = "run gui editor", group = "launcher"}),
 
     -- Default
     --[[ Menubar
@@ -523,7 +511,7 @@ clientkeys = awful.util.table.join(
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-    awful.key({ modkey,    }, "q",      function (c) c:kill()                         end,
+    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
@@ -634,7 +622,7 @@ awful.rules.rules = {
 
     -- Titlebars
     { rule_any = { type = { "dialog", "normal" } },
-      properties = { titlebars_enabled = false } },
+      properties = { titlebars_enabled = true } },
 
     -- Set Firefox to always map on the first tag on screen 1.
     { rule = { class = "Firefox" },
@@ -729,7 +717,3 @@ client.connect_signal("focus",
     end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
-
--- Autostart Applications
-awful.spawn.with_shell("~/.config/awesome/autostart.sh")
-

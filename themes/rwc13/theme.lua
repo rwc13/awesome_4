@@ -366,6 +366,19 @@ function theme.at_screen_connect(s)
             mytextclock,
         },
     }
+
+	-- Create the vertical wibox
+    s.myverticalwibox = awful.wibar({ position = "left", screen = s, width = 85, bg = theme.bg_normal, fg = theme.fg_normal })
+
+    -- Add widgets to the wibox
+    s.myverticalwibox:setup {
+        layout = wibox.layout.align.vertical,
+        { -- Top widgets
+            layout = wibox.layout.fixed.vertical,
+			mylauncher,
+        },
+    }
+
 end
 
 return theme
