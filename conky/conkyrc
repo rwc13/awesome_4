@@ -78,21 +78,16 @@ ${color2}Temp: $color${exec sensors | grep Core\ 3 | awk '{print $3}'}
 
 
 ${image /home/reed/.config/awesome/conky/pacman.png -p 13,50 -s 50x50 }
-${font Droid Sans Mono:size=8}${color2}Pacman: 	$color1${font Droid Sans Mono:size=8:bold}${execp cat /tmp/off.updates | wc -l}
-${font Droid Sans Mono:size=8}${color2}AUR:    	$color1${font Droid Sans Mono:size=8:bold}${execp cat /tmp/aur.updates | wc -l}$color
+${font Droid Sans Mono:size=8}${color2}PAC: 	$color1${font Droid Sans Mono:size=8:bold}${execp cat /tmp/off.updates | wc -l}
+${font Droid Sans Mono:size=8}${color2}AUR:	$color1${font Droid Sans Mono:size=8:bold}${execp cat /tmp/aur.updates | wc -l}$color
 
 
 # NVIDIA
-${image /home/reed/.config/awesome/conky/NVIDIA.png -p 23,119 -s 35x35 }
-${font Droid Sans Mono:size=7}${color2}GPU: $alignr$color ${nvidia gpuutil}%
-${font Droid Sans Mono:size=7}${color2}RAM: $alignr$color ${nvidia membwutil}%
-${font Droid Sans Mono:size=7}${color2}VIDEO: $alignr$color ${nvidia videoutil}%
-${font Droid Sans Mono:size=7}${color2}PCIe: $alignr$color ${nvidia pcieutil}%
 
 
 
 # CPU
-${image /home/reed/.config/awesome/conky/cpu.png -p 23,212 -s 35x35 }
+${image /home/reed/.config/awesome/conky/cpu.png -p 23,145 -s 35x35 }
 #${font xirod:Bold:size=14}${color1}${alignc}CPU$font$color
 ${color1}${cpubar cpu1}${color}
 ${voffset -13}${color6}${execbar echo 0}
@@ -134,7 +129,7 @@ $color6${cpugraph cpu3 20,38 1793D0 1793D0} ${alignr}${cpugraph cpu4 20,38 1793D
 
 
 # MEMORY
-${image /home/reed/.config/awesome/conky/ram.png -p 23,390 -s 35x17 }
+${image /home/reed/.config/awesome/conky/ram.png -p 23,343 -s 35x17 }
 #${font xirod:Bold:size=13}${color1}${alignc}MEM$color$font
 #${font Droid Sans:size=7}MEMORY
 ${color2}$mem / $memmax
@@ -148,7 +143,7 @@ ${voffset -15}${color6}${execbar echo 0}$color
 #${voffset -12}${color6}${execbar echo 0}
 
 ## HDD
-${image /home/reed/.config/awesome/conky/hard_drive.png -p 23,454 -s 35x35 }
+${image /home/reed/.config/awesome/conky/hard_drive.png -p 23,407 -s 35x35 }
 $font${color1}/dev/sda
 ${font Droid Sans Mono:size=7}${color2}Read:$diskio_read
 Write:$diskio_write${color}
@@ -161,25 +156,18 @@ ${color2}/home$color${font Droid Sans Mono:size=7}$color1$alignr${fs_used_perc /
 ${color1}${fs_bar /home}$color
 ${voffset -13}${color6}${execbar echo 0}
 
-${color2}Data$color${font Droid Sans Mono:size=7}$color1$alignr${fs_used_perc /media/Data} %$color
-${color1}${fs_bar /media/Data}$color
-${voffset -13}${color6}${execbar echo 0}$color
+#${color2}Data$color${font Droid Sans Mono:size=7}$color1$alignr${fs_used_perc /media/Data} %$color
+#${color1}${fs_bar /media/Data}$color
+#${voffset -13}${color6}${execbar echo 0}$color
 
 
 
 ## NETWORK
-${image /home/reed/.config/awesome/conky/network.png -p 23,645 -s 35x35 }
-#${font xirod:Bold:size=14}${color1}${alignc}NET$color$font
-${font Droid Sans:size=7}${color2}Int:$alignr${color1}$gw_iface$font
-${color2}VPN:$alignr${if_up tun0}${color1}Up${else}${color red}Down$endif$font$color
-${color2}UFW: $alignr$color1${execi 30 systemctl is-active ufw}$color
-#Public IP${alignr} NOPE;)
-${color2}Packets
-${color2}In: $color1${tcp_portmon 1 32767 count} $alignr$color2${alignr}Out: $color1${tcp_portmon 32768 61000 count}$color
+${image /home/reed/.config/awesome/conky/network.png -p 23,580 -s 35x35 }
 
-#${color2}Up: ${alignr}${color green}${upspeed eno1}/s$color
-#${color2}Total: ${alignr}${color green}${totalup eno1}$color
-#$color6${upspeedgraph eno1 33,79 00ff00 00ff00}$color
-#${color2}Down: ${alignr}${color red}${downspeed eno1}/s$color
-#${color2}Total: ${alignr}${color red}${totaldown eno1}$color
-#$color6${downspeedgraph eno1 33,79 ff0000 ff0000}
+${color2}Up: ${alignr}${color green}${upspeed eno1}/s$color
+${color2}Total: ${alignr}${color green}${totalup eno1}$color
+$color6${upspeedgraph eno1 33,79 00ff00 00ff00}$color
+${color2}Down: ${alignr}${color red}${downspeed eno1}/s$color
+${color2}Total: ${alignr}${color red}${totaldown eno1}$color
+$color6${downspeedgraph eno1 33,79 ff0000 ff0000}
