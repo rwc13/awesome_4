@@ -8,6 +8,7 @@ function run {
 }
 
 run "compton"
+run "dropbox"
 run "nm-applet"
 run "mpd"
 pkill conky
